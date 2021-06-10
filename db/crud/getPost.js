@@ -1,5 +1,4 @@
 const AWS = require("aws-sdk");
-
 AWS.config.update({
   endpoint: "http://localhost:8000",
   region: "us-west-2",
@@ -8,17 +7,19 @@ AWS.config.update({
 });
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-const post = async (groups) => {
+const params = {
+  TableName: "Post",
+};
+
+const get = async () => {
   try {
-    await docClient.put(params).promise();
+    const result = await docClient.scan(params).promise();
+    console.log("GET success---.");
+    return result.Items;
   } catch (err) {
-    console.log("POST failed. Server error---.");
     console.log(err);
     return false;
   }
-
-  console.log("POST success---.");
-  return true;
 };
 
-module.exports = post;
+module.exports = get;
