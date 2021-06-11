@@ -8,8 +8,12 @@ AWS.config.update({
 const dynamodb = new AWS.DynamoDB();
 
 const params = {
-  TableName: 'Post',
+  TableName: 'Product',
   AttributeDefinitions: [
+    {
+      AttributeName: 'type',
+      AttributeType: 'S',
+    },
     {
       AttributeName: 'id',
       AttributeType: 'S',
@@ -17,8 +21,12 @@ const params = {
   ],
   KeySchema: [
     {
-      AttributeName: 'id',
+      AttributeName: 'type',
       KeyType: 'HASH',
+    },
+    {
+      AttributeName: 'id',
+      KeyType: 'RANGE',
     },
   ],
   ProvisionedThroughput: {

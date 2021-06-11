@@ -1,20 +1,20 @@
-const AWS = require("aws-sdk");
+const AWS = require('aws-sdk');
 AWS.config.update({
-  endpoint: "http://localhost:8000",
-  region: "us-west-2",
-  accessKeyId: "fakeMyKeyId",
-  secretAccessKey: "fakeSecretAccessKey",
+  endpoint: 'http://localhost:8000',
+  region: 'us-west-2',
+  accessKeyId: 'fakeMyKeyId',
+  secretAccessKey: 'fakeSecretAccessKey',
 });
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = {
-  TableName: "Post",
+  TableName: 'Product',
 };
 
 const get = async () => {
   try {
     const result = await docClient.scan(params).promise();
-    console.log("GET success---.");
+    console.log('GET success---.');
     return result.Items;
   } catch (err) {
     console.log(err);

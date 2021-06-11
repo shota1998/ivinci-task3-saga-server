@@ -1,6 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
 const AWS = require('aws-sdk');
-
 AWS.config.update({
   endpoint: 'http://localhost:8000',
   region: 'us-west-2',
@@ -10,23 +8,13 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = {
-  TableName: 'Post',
-  Item: {
-    id: uuidv4(),
-    title: 'title1',
-    body: 'body3',
-  },
-  Item: {
-    id: uuidv4(),
-    title: 'title1',
-    body: 'body4',
-  },
+  TableName: 'Product',
 };
 
-docClient.put(params, (err, data) => {
+docClient.scan(params, (err, data) => {
   if (err) {
     console.log(err);
   } else {
-    console.log(data);
+    console.log(data.Items);
   }
 });
