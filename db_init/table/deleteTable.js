@@ -7,14 +7,21 @@ AWS.config.update({
 });
 const dynamodb = new AWS.DynamoDB();
 
-const params = {
-  TableName: 'Post',
-};
+const params = [
+  {
+    TableName: 'Items',
+  },
+  {
+    TableName: 'Cart',
+  },
+];
 
-dynamodb.deleteTable(params, (err, data) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(data);
-  }
-});
+for (param of params) {
+  dynamodb.deleteTable(param, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(data);
+    }
+  });
+}

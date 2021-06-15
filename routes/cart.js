@@ -1,10 +1,10 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const getPost = require("../db/crud/getPost");
-const createPost = require("../db/crud/createPost");
+const getCartItem = require('../db/crud/getCartItem');
+const createCartItem = require('../db/crud/createCartItem');
 
-router.get("/list", async (req, res, next) => {
-  const result = await getPost();
+router.get('/list', async (req, res, next) => {
+  const result = await getCartItem();
 
   if (result) {
     res.status(200).json(result);
@@ -15,9 +15,9 @@ router.get("/list", async (req, res, next) => {
   }
 });
 
-router.post("/list", async (req, res, next) => {
+router.post('/list', async (req, res, next) => {
   const body = req.body;
-  const result = await createPost(body);
+  const result = await createCartItem(body);
 
   if (result) {
     res.status(201).json({

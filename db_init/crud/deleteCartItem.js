@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+
 AWS.config.update({
   endpoint: 'http://localhost:8000',
   region: 'us-west-2',
@@ -8,18 +9,17 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = {
-  TableName: 'Product',
+  TableName: 'Cart',
+  Key: {
+    type: '0',
+    id: '0',
+  },
 };
 
-const get = async () => {
-  try {
-    const result = await docClient.scan(params).promise();
-    console.log('GET success---.');
-    return result.Items;
-  } catch (err) {
+docClient.delete(params, function (err, data) {
+  if (err) {
     console.log(err);
-    return false;
+  } else {
+    console.log(data);
   }
-};
-
-module.exports = get;
+});

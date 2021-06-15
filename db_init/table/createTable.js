@@ -7,38 +7,69 @@ AWS.config.update({
 });
 const dynamodb = new AWS.DynamoDB();
 
-const params = {
-  TableName: 'Product',
-  AttributeDefinitions: [
-    {
-      AttributeName: 'type',
-      AttributeType: 'S',
+const params = [
+  {
+    TableName: 'Items',
+    AttributeDefinitions: [
+      {
+        AttributeName: 'type',
+        AttributeType: 'S',
+      },
+      {
+        AttributeName: 'id',
+        AttributeType: 'S',
+      },
+    ],
+    KeySchema: [
+      {
+        AttributeName: 'type',
+        KeyType: 'HASH',
+      },
+      {
+        AttributeName: 'id',
+        KeyType: 'RANGE',
+      },
+    ],
+    ProvisionedThroughput: {
+      ReadCapacityUnits: 1,
+      WriteCapacityUnits: 1,
     },
-    {
-      AttributeName: 'id',
-      AttributeType: 'S',
-    },
-  ],
-  KeySchema: [
-    {
-      AttributeName: 'type',
-      KeyType: 'HASH',
-    },
-    {
-      AttributeName: 'id',
-      KeyType: 'RANGE',
-    },
-  ],
-  ProvisionedThroughput: {
-    ReadCapacityUnits: 1,
-    WriteCapacityUnits: 1,
   },
-};
+  {
+    TableName: 'Cart',
+    AttributeDefinitions: [
+      {
+        AttributeName: 'type',
+        AttributeType: 'S',
+      },
+      {
+        AttributeName: 'id',
+        AttributeType: 'S',
+      },
+    ],
+    KeySchema: [
+      {
+        AttributeName: 'type',
+        KeyType: 'HASH',
+      },
+      {
+        AttributeName: 'id',
+        KeyType: 'RANGE',
+      },
+    ],
+    ProvisionedThroughput: {
+      ReadCapacityUnits: 1,
+      WriteCapacityUnits: 1,
+    },
+  },
+];
 
-dynamodb.createTable(params, (err, data) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(data);
-  }
-});
+for (param of params) {
+  dynamodb.createTable(param, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(data);
+    }
+  });
+}

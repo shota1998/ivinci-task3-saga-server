@@ -8,13 +8,18 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = {
-  TableName: 'Items',
+  TableName: 'Cart',
 };
 
-docClient.scan(params, (err, data) => {
-  if (err) {
+const get = async () => {
+  try {
+    const result = await docClient.scan(params).promise();
+    console.log('GET Cart Item success---.');
+    return result.Items;
+  } catch (err) {
     console.log(err);
-  } else {
-    console.log(data.Items);
+    return false;
   }
-});
+};
+
+module.exports = get;

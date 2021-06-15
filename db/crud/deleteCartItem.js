@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+
 AWS.config.update({
   endpoint: 'http://localhost:8000',
   region: 'us-west-2',
@@ -8,13 +9,16 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = {
-  TableName: 'Items',
+  TableName: 'Post',
+  Key: {
+    id: '0',
+  },
 };
 
-docClient.scan(params, (err, data) => {
+docClient.delete(params, function (err, data) {
   if (err) {
     console.log(err);
   } else {
-    console.log(data.Items);
+    console.log(data);
   }
 });

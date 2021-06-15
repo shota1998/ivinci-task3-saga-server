@@ -11,7 +11,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = [
   {
-    TableName: 'Product',
+    TableName: 'Items',
     Item: {
       type: '0',
       id: '0',
@@ -22,7 +22,7 @@ const params = [
     },
   },
   {
-    TableName: 'Product',
+    TableName: 'Items',
     Item: {
       type: '0',
       id: '1',

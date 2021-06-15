@@ -11,10 +11,15 @@ const params = {
   TableName: 'Items',
 };
 
-docClient.scan(params, (err, data) => {
-  if (err) {
+const get = async () => {
+  try {
+    const result = await docClient.scan(params).promise();
+    console.log('GET Items success---.');
+    return result.Items;
+  } catch (err) {
     console.log(err);
-  } else {
-    console.log(data.Items);
+    return false;
   }
-});
+};
+
+module.exports = get;
