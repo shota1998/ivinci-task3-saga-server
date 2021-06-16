@@ -8,17 +8,25 @@ AWS.config.update({
 });
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-const params = {
-  TableName: 'Post',
-  Key: {
-    id: '0',
-  },
+const deleteItem = async (item) => {
+  console.log(item);
+  try {
+    const params = {
+      TableName: 'Cart',
+      Key: {
+        type: item.type,
+        id: item.id,
+      },
+    };
+    await docClient.delete(params).promise();
+  } catch (err) {
+    console.log('DELETE failed. Server error---.');
+    console.log(err);
+    return false;
+  }
+
+  console.log('DELETE success---.');
+  return true;
 };
 
-docClient.delete(params, function (err, data) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(data);
-  }
-});
+module.exports = deleteItem;

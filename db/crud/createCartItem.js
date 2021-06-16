@@ -9,6 +9,7 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const post = async (item) => {
+  console.log(item);
   try {
     const params = {
       TableName: 'Cart',

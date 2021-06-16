@@ -18,7 +18,7 @@ const params = [
       title: 'sampleTitle0',
       value: 3.0,
       description: 'sampleDescription0',
-      quantity: 0,
+      quantity: 1,
     },
   },
   {
@@ -29,7 +29,7 @@ const params = [
       title: 'sampleTitle1',
       value: 5.0,
       description: 'sampleDescription1',
-      quantity: 0,
+      quantity: 1,
     },
   },
 ];

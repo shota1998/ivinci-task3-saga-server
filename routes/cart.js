@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const getCartItem = require('../db/crud/getCartItem');
 const createCartItem = require('../db/crud/createCartItem');
+const deleteCartItem = require('../db/crud/deleteCartItem');
 
 router.get('/list', async (req, res, next) => {
   const result = await getCartItem();
@@ -15,7 +16,7 @@ router.get('/list', async (req, res, next) => {
   }
 });
 
-router.post('/list', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const body = req.body;
   const result = await createCartItem(body);
 
@@ -31,6 +32,23 @@ router.post('/list', async (req, res, next) => {
     });
   }
   // 500
+});
+
+router.delete('/', async (req, res, next) => {
+  const body = req.body;
+  const result = await deleteCartItem(body);
+
+  if (result) {
+    res.status(201).json({
+      result: true,
+      body: body,
+    });
+  } else {
+    res.status(400).json({
+      result: false,
+      body: body,
+    });
+  }
 });
 
 module.exports = router;
