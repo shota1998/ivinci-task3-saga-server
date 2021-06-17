@@ -8,18 +8,20 @@ AWS.config.update({
 });
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-const post = async (item) => {
-  console.log(item);
-  try {
-    const params = {
-      TableName: 'Cart',
-      Item: item,
-    };
-    await docClient.put(params).promise();
-  } catch (err) {
-    console.log('POST failed. Server error---.');
-    console.log(err);
-    return false;
+const post = async (items) => {
+  console.log(items);
+  for (const item of items) {
+    try {
+      const params = {
+        TableName: 'Cart',
+        Item: item,
+      };
+      await docClient.put(params).promise();
+    } catch (err) {
+      console.log('POST failed. Server error---.');
+      console.log(err);
+      return false;
+    }
   }
 
   console.log('POST success---.');
